@@ -21,11 +21,11 @@ export default async function handler(
   const buf = await buffer(req)
   const sig = req.headers['stripe-signature']
 
-  if (!sig) {
+  if (!sig || Array.isArray(sig)) {
     return res.status(400).json({ error: 'Missing signature' })
   }
 
-  const result = await handleWebhook(buf.toString(), sig)
+  const result = await handleWebhook(buf.toString(), sig as string)
 
   if ('error' in result) {
     console.error('Webhook error:', result.error)
