@@ -179,7 +179,7 @@ export default function Home() {
             Ready to Get Paid Faster?
           </h2>
           <p className="text-xl text-primary-100 mb-8">
-            Join thousands of freelancers and small businesses using InvoiceFlow.
+            Join thousands of freelancers and small businesses using InvoiceThis.
           </p>
           <Link
             href="/register"

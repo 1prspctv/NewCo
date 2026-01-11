@@ -1,4 +1,4 @@
-# InvoiceFlow - Simple Invoice Generator SaaS
+# InvoiceThis - Simple Invoice Generator SaaS
 
 A complete, ready-to-deploy invoice generation SaaS that you can monetize. Built with Next.js, Tailwind CSS, and Stripe.
 

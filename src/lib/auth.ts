@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { parse } from 'cookie'
 import { getUserById, User } from './db'
 
-const JWT_SECRET = process.env.JWT_SECRET || 'invoiceflow-secret-key-change-in-production'
+const JWT_SECRET = process.env.JWT_SECRET || 'invoicethis-secret-key-change-in-production'
 
 export async function hashPassword(password: string): Promise<string> {
   return bcrypt.hash(password, 12)

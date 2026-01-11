@@ -31,7 +31,7 @@ export async function createCheckoutSession(
           price_data: {
             currency: 'usd',
             product_data: {
-              name: 'InvoiceFlow Pro',
+              name: 'InvoiceThis Pro',
               description: 'Unlimited invoices, premium templates, priority support',
             },
             unit_amount: PRO_PLAN_PRICE,

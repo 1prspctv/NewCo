@@ -6,7 +6,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>InvoiceFlow - Simple Invoice Generator</title>
+        <title>InvoiceThis - Simple Invoice Generator</title>
         <meta name="description" content="Create professional invoices in seconds. Free to start, affordable to scale." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
