@@ -59,14 +59,27 @@ function readData<T>(filename: string): T[] {
   if (!fs.existsSync(filepath)) {
     return []
   }
-  const data = fs.readFileSync(filepath, 'utf-8')
-  return JSON.parse(data)
+  try {
+    const data = fs.readFileSync(filepath, 'utf-8')
+    if (!data || data.trim() === '') {
+      return []
+    }
+    return JSON.parse(data)
+  } catch (error) {
+    console.error(`Error reading ${filename}:`, error)
+    return []
+  }
 }
 
 function writeData<T>(filename: string, data: T[]) {
-  ensureDataDir()
-  const filepath = path.join(DATA_DIR, filename)
-  fs.writeFileSync(filepath, JSON.stringify(data, null, 2))
+  try {
+    ensureDataDir()
+    const filepath = path.join(DATA_DIR, filename)
+    fs.writeFileSync(filepath, JSON.stringify(data, null, 2))
+  } catch (error) {
+    console.error(`Error writing to ${filename}:`, error)
+    throw error
+  }
 }
 
 // User operations
