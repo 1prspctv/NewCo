@@ -4,7 +4,9 @@
 import fs from 'fs'
 import path from 'path'
 
-const DATA_DIR = process.env.DATA_DIR || path.join(process.cwd(), 'data')
+// Use /tmp for Vercel (writable ephemeral storage) or ./data locally
+const DATA_DIR = process.env.DATA_DIR ||
+  (process.env.VERCEL ? '/tmp' : path.join(process.cwd(), 'data'))
 
 interface User {
   id: string
@@ -48,18 +50,19 @@ interface Invoice {
 }
 
 function ensureDataDir() {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true, mode: 0o777 })
-  }
-  // Ensure directory is writable
   try {
-    fs.accessSync(DATA_DIR, fs.constants.W_OK)
-  } catch {
-    try {
-      fs.chmodSync(DATA_DIR, 0o777)
-    } catch (error) {
-      console.error(`Warning: Could not set write permissions on ${DATA_DIR}:`, error)
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true, mode: 0o777 })
     }
+    // Ensure directory is writable
+    try {
+      fs.accessSync(DATA_DIR, fs.constants.W_OK)
+    } catch {
+      fs.chmodSync(DATA_DIR, 0o777)
+    }
+  } catch (error) {
+    console.error(`Error ensuring data directory ${DATA_DIR}:`, error)
+    // Don't throw for read operations, only log the error
   }
 }
 
