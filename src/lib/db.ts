@@ -49,7 +49,17 @@ interface Invoice {
 
 function ensureDataDir() {
   if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true })
+    fs.mkdirSync(DATA_DIR, { recursive: true, mode: 0o777 })
+  }
+  // Ensure directory is writable
+  try {
+    fs.accessSync(DATA_DIR, fs.constants.W_OK)
+  } catch {
+    try {
+      fs.chmodSync(DATA_DIR, 0o777)
+    } catch (error) {
+      console.error(`Warning: Could not set write permissions on ${DATA_DIR}:`, error)
+    }
   }
 }
 
